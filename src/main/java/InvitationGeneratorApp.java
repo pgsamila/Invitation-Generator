@@ -43,6 +43,11 @@ public class InvitationGeneratorApp {
         prepareGUI();
     }
 
+    public static void main(String[] args){
+        InvitationGeneratorApp invitationGeneratorApp = new InvitationGeneratorApp();
+        invitationGeneratorApp.initialize();
+    }
+
     public void initialize(){
         sourceFileTextField.setText(invitationGenerator.getSourceFileLocation());
         targetFolderTextField.setText(invitationGenerator.getTargetFolderLocation());
