@@ -20,7 +20,7 @@ jobs:
 
       - name: Build project with Maven
         run: mvn -B package --file pom.xml
-        
+
   publish-job:
     runs-on: ubuntu-latest
     needs: [ build_and_test ]
@@ -30,7 +30,7 @@ jobs:
         with:
           java-version: 14
       - run: mvn -B package --file pom.xml -DskipTests
-      - run: mkdir staging && cp target/*jar-with-dependencies.jar staging
+      - run: mkdir staging && cp target/Invitation-1.0-SNAPSHOT.jar staging
       - uses: actions/upload-artifact@v1
         with:
           name: Package
