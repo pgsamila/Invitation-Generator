@@ -43,12 +43,7 @@ public class InvitationGeneratorApp {
         prepareGUI();
     }
 
-    public static void main(String[] args){
-        InvitationGeneratorApp swingControlDemo = new InvitationGeneratorApp();
-        swingControlDemo.initialize();
-    }
-
-    private void initialize(){
+    public void initialize(){
         sourceFileTextField.setText(invitationGenerator.getSourceFileLocation());
         targetFolderTextField.setText(invitationGenerator.getTargetFolderLocation());
         nameListTextField.setText(invitationGenerator.getNameListFile());
