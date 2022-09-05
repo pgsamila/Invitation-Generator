@@ -175,7 +175,6 @@ public class InvitationGeneratorApp {
             if(Objects.equals(e.getActionCommand(), "comboBoxChanged")){
                 String font = fonts[fontComboBox.getSelectedIndex()];
                 invitationGenerator.setFont(font);
-                fontComboBox.setFont(new Font(font,Font.PLAIN,12));
                 previewFontStyle();
                 fontPreview.setText(font);
                 loadPreview();
