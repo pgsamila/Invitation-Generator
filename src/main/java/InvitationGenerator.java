@@ -25,6 +25,15 @@ public class InvitationGenerator {
     private int textPositionY = 0;
     private boolean isSizesInitialized = false;
     private Color fontColor = Color.RED;
+    private int scale = 4;
+
+    public int getScale() {
+        return scale;
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
 
     public String getSourceFileLocation() {
         return sourceFileLocation;
@@ -140,7 +149,7 @@ public class InvitationGenerator {
         }
         String text = "Test Word ^ droW tseT";
         ImageProcessor ip = getProcessedImage(image, text);
-        imagePrevLabel.setIcon(new ImageIcon(ip.getBufferedImage().getScaledInstance(imageWidth / 2, imageHeight / 2, 0)));
+        imagePrevLabel.setIcon(new ImageIcon(ip.getBufferedImage().getScaledInstance(imageWidth / scale, imageHeight / scale, 0)));
         imagePrevLabel.setText("");
     }
 

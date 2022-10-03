@@ -27,13 +27,14 @@ public class InvitationGeneratorApp {
     private JButton openNameListFileButton;
     private JProgressBar progressBar;
     private JLabel statusText;
-    private JSlider xSlider;
-    private JSlider ySlider;
     private JLabel imagePrevLabel;
     private JButton selectColorButton;
     private JPanel colorPlane;
     private JLabel xValLabel;
     private JLabel yValLabel;
+    private JSpinner spinnerY;
+    private JSpinner spinnerX;
+    private JSlider sliderPreviewScale;
     private JFrame mainFrame;
     private InvitationGenerator invitationGenerator;
 
@@ -56,11 +57,12 @@ public class InvitationGeneratorApp {
         fontComboBox.setSelectedItem(invitationGenerator.getFont());
         fontStyleComboBox.setSelectedItem("Plain");
         loadPreview();
-        ySlider.setMaximum(invitationGenerator.getImageHeight());
-        xSlider.setMaximum(invitationGenerator.getImageWidth());
         xValLabel.setText("X : "+invitationGenerator.getImageWidth());
         yValLabel.setText("Y : "+invitationGenerator.getImageHeight());
         colorPlane.setBackground(invitationGenerator.getFontColor());
+        sliderPreviewScale.setValue(invitationGenerator.getScale());
+        sliderPreviewScale.setMaximum(10);
+        sliderPreviewScale.setMinimum(1);
         mainFrame.setVisible(true);
     }
 
@@ -117,22 +119,27 @@ public class InvitationGeneratorApp {
             String filename= f.getAbsolutePath();
             invitationGenerator.setSourceFileLocation(filename);
             sourceFileTextField.setText(invitationGenerator.getSourceFileLocation());
-            xSlider.setMaximum(invitationGenerator.getImageWidth());
-            ySlider.setMaximum(invitationGenerator.getImageHeight());
+            loadValues();
             loadPreview();
         });
 
-        xSlider.addChangeListener(e -> {
-            int value = xSlider.getValue();
+        spinnerX.addChangeListener(e -> {
+            int value = (int) spinnerX.getValue();
             invitationGenerator.setXPosition(value);
             xValLabel.setText("X : "+value);
             loadPreview();
         });
 
-        ySlider.addChangeListener(e -> {
-            int value = ySlider.getValue();
+        spinnerY.addChangeListener(e -> {
+            int value = (int) spinnerY.getValue();
             invitationGenerator.setYPosition(value);
             yValLabel.setText("Y : "+value);
+            loadPreview();
+        });
+
+        sliderPreviewScale.addChangeListener(e -> {
+            int value = sliderPreviewScale.getValue();
+            invitationGenerator.setScale(value);
             loadPreview();
         });
 
@@ -176,7 +183,7 @@ public class InvitationGeneratorApp {
                 String font = fonts[fontComboBox.getSelectedIndex()];
                 invitationGenerator.setFont(font);
                 previewFontStyle();
-                fontPreview.setText(font);
+                //fontPreview.setText(font);
                 loadPreview();
             }
         });
@@ -218,20 +225,35 @@ public class InvitationGeneratorApp {
 
         generateInvitationsButton.addActionListener(e -> {
             statusText.setText("Generating ...");
-            try {
-                progressBar.setBackground(Color.GREEN);
-                int nameSize = invitationGenerator.processNames();
-                progressBar.setMaximum(nameSize + 10);
-                progressBar.setMinimum(0);
-                progressBar.setValue(10);
-                invitationGenerator.createImages(progressBar);
-                statusText.setText("Done!");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                statusText.setText("Failed! : "+ex.getMessage());
-                progressBar.setForeground(Color.RED);
-            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    generateInvitationsButton.setEnabled(false);
+                    try {
+                        progressBar.setBackground(Color.GREEN);
+                        int nameSize = invitationGenerator.processNames();
+                        progressBar.setMaximum(nameSize + 10);
+                        progressBar.setMinimum(0);
+                        progressBar.setValue(10);
+                        invitationGenerator.createImages(progressBar);
+                        statusText.setText("Done!");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        statusText.setText("Failed! : "+ex.getMessage());
+                        progressBar.setForeground(Color.RED);
+                    }
+                    generateInvitationsButton.setEnabled(true);
+                }
+            }).start();
+
         });
+    }
+
+    private void loadValues() {
+        spinnerX.setValue(invitationGenerator.getImageWidth()/2);
+        spinnerY.setValue(invitationGenerator.getImageHeight()/2);
+        yValLabel.setText("Y min: 0 & Y max: "+invitationGenerator.getImageHeight());
+        xValLabel.setText("X min: 0 & X max: "+invitationGenerator.getImageWidth());
     }
 
     private void loadPreview() {
@@ -240,7 +262,7 @@ public class InvitationGeneratorApp {
     }
 
     private void previewFontStyle() {
-        fontPreview.setFont(new Font(invitationGenerator.getFont(),invitationGenerator.getFontStyle(),invitationGenerator.getFontSize()));
+        //fontPreview.setFont(new Font(invitationGenerator.getFont(),invitationGenerator.getFontStyle(),invitationGenerator.getFontSize()));
     }
 
 }

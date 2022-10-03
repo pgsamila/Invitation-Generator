@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="controlPanel" layout-manager="GridLayoutManager" row-count="15" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="758" height="757"/>
+      <xy x="20" y="20" width="859" height="757"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -92,25 +92,6 @@
           <text value="Generate Invitations"/>
         </properties>
       </component>
-      <scrollpane id="a93a8">
-        <constraints>
-          <grid row="5" column="2" row-span="3" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="2" indent="0" use-parent-layout="false">
-            <minimum-size width="250" height="150"/>
-            <maximum-size width="250" height="150"/>
-          </grid>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="2466" class="javax.swing.JLabel" binding="fontPreview">
-            <constraints/>
-            <properties>
-              <horizontalAlignment value="0"/>
-              <text value="Label"/>
-            </properties>
-          </component>
-        </children>
-      </scrollpane>
       <component id="57d5" class="javax.swing.JLabel">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -183,14 +164,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="e0bf9" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Preview"/>
-        </properties>
-      </component>
       <grid id="a758e" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
@@ -219,13 +192,13 @@
               <text value="Y :"/>
             </properties>
           </component>
-          <component id="14dbf" class="javax.swing.JSlider" binding="ySlider">
+          <component id="85880" class="javax.swing.JSpinner" binding="spinnerY">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <component id="d3630" class="javax.swing.JSlider" binding="xSlider">
+          <component id="8d1cb" class="javax.swing.JSpinner" binding="spinnerX">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -284,6 +257,46 @@
         <border type="none"/>
         <children/>
       </grid>
+      <grid id="2fe40" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="310b1" class="javax.swing.JSlider" binding="sliderPreviewScale">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="ddcca" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Zoom Out"/>
+            </properties>
+          </component>
+          <component id="f86" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Zoom In"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="e0bf9" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Preview"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
