@@ -1,3 +1,5 @@
+import org.json.simple.JSONObject;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
@@ -8,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +38,8 @@ public class InvitationGeneratorApp {
     private JSpinner spinnerY;
     private JSpinner spinnerX;
     private JSlider sliderPreviewScale;
+    private JButton exportFormatSettingsButton;
+    private JButton importFormatSettingsButton;
     private JFrame mainFrame;
     private InvitationGenerator invitationGenerator;
 
@@ -238,6 +243,44 @@ public class InvitationGeneratorApp {
                 }
             }).start();
 
+        });
+
+        exportFormatSettingsButton.addActionListener(e ->{
+            JSONObject obj = new JSONObject();
+            obj.put("fontName", invitationGenerator.getFont());
+            obj.put("fontSize", invitationGenerator.getFontSize());
+            obj.put("fontStyle", invitationGenerator.getFontStyle());
+            obj.put("fontColorR", invitationGenerator.getFontColor().getRed());
+            obj.put("fontColorG", invitationGenerator.getFontColor().getGreen());
+            obj.put("fontColorB", invitationGenerator.getFontColor().getBlue());
+            obj.put("textXPosition", invitationGenerator.getTextPositionX());
+            obj.put("textYPosition", invitationGenerator.getTextPositionY());
+            JFrame parentFrame = new JFrame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Specify a file to Export Text settings");
+            int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                FileWriter file = null;
+                try {
+                    try {
+                        file = new FileWriter(fileToSave.getAbsolutePath()+".json");
+                        file.write(obj.toJSONString());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }finally {
+                    try {
+                        if (file != null) {
+                            file.flush();
+                            file.close();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
         });
     }
 

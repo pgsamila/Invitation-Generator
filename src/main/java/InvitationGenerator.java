@@ -169,8 +169,16 @@ public class InvitationGenerator {
         this.textPositionX = value;
     }
 
+    public int getTextPositionX() {
+        return textPositionX;
+    }
+
     public void setYPosition(int value) {
         this.textPositionY = value;
+    }
+
+    public int getTextPositionY() {
+        return textPositionY;
     }
 
     public Color getFontColor() {
