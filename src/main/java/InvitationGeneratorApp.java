@@ -1,4 +1,7 @@
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -8,10 +11,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -250,9 +250,7 @@ public class InvitationGeneratorApp {
             obj.put("fontName", invitationGenerator.getFont());
             obj.put("fontSize", invitationGenerator.getFontSize());
             obj.put("fontStyle", invitationGenerator.getFontStyle());
-            obj.put("fontColorR", invitationGenerator.getFontColor().getRed());
-            obj.put("fontColorG", invitationGenerator.getFontColor().getGreen());
-            obj.put("fontColorB", invitationGenerator.getFontColor().getBlue());
+            obj.put("fontColor",invitationGenerator.getFontColor().getRGB());
             obj.put("textXPosition", invitationGenerator.getTextPositionX());
             obj.put("textYPosition", invitationGenerator.getTextPositionY());
             JFrame parentFrame = new JFrame();
@@ -281,6 +279,50 @@ public class InvitationGeneratorApp {
                     }
                 }
             }
+        });
+
+        importFormatSettingsButton.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Select Text Format Settings File");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Json Files", "json");
+            chooser.setFileFilter(filter);
+            chooser.showOpenDialog(null);
+
+            File textFormatFile = chooser.getSelectedFile();
+
+            JSONParser jsonParser = new JSONParser();
+
+            try (FileReader reader = new FileReader(textFormatFile)) {
+                JSONObject obj = (JSONObject) jsonParser.parse(reader);
+                String fontName = (String) obj.get("fontName");
+                Long fontSize = (Long) obj.get("fontSize");
+                Long fontStyle = (Long) obj.get("fontStyle");
+                Long fontColor = (Long) obj.get("fontColor");
+                Long textXPosition = (Long) obj.get("textXPosition");
+                Long textYPosition = (Long) obj.get("textYPosition");
+                int rgb = fontColor.intValue();
+                Color color = new Color(rgb);
+
+                // Load save data
+                invitationGenerator.setFont(fontName);
+                invitationGenerator.setFontSize(Math.toIntExact(fontSize));
+                invitationGenerator.setFontStyle(Math.toIntExact(fontStyle));
+                invitationGenerator.setFontColor(color);
+                invitationGenerator.setXPosition(Math.toIntExact(textXPosition));
+                invitationGenerator.setYPosition(Math.toIntExact(textYPosition));
+
+                // Load UI
+                fontComboBox.setSelectedItem(fontName);
+                fontSizeSpinner.setValue(fontSize);
+                fontStyleComboBox.setSelectedItem(invitationGenerator.getFontStyle());
+                colorPlane.setBackground(color);
+                spinnerX.setValue(Math.toIntExact(textXPosition));
+                spinnerY.setValue(Math.toIntExact(textYPosition));
+            } catch (IOException | ParseException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            }
+            // Update preview
+            loadPreview();
         });
     }
 
