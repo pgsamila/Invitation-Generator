@@ -5,10 +5,11 @@ import ij.process.ImageProcessor;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.text.AttributedString;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class InvitationGenerator {

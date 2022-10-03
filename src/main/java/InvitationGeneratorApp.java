@@ -1,4 +1,3 @@
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -47,11 +46,6 @@ public class InvitationGeneratorApp {
     public InvitationGeneratorApp(){
         invitationGenerator = new InvitationGenerator();
         prepareGUI();
-    }
-
-    public static void main(String[] args){
-        InvitationGeneratorApp invitationGeneratorApp = new InvitationGeneratorApp();
-        invitationGeneratorApp.initialize();
     }
 
     public void initialize(){
