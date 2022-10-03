@@ -145,7 +145,6 @@ public class InvitationGeneratorApp {
             if(newColor != null){
                 invitationGenerator.setFontColor(newColor);
             }
-            previewFontStyle();
             loadPreview();
         });
 
@@ -179,8 +178,6 @@ public class InvitationGeneratorApp {
             if(Objects.equals(e.getActionCommand(), "comboBoxChanged")){
                 String font = fonts[fontComboBox.getSelectedIndex()];
                 invitationGenerator.setFont(font);
-                previewFontStyle();
-                //fontPreview.setText(font);
                 loadPreview();
             }
         });
@@ -197,14 +194,12 @@ public class InvitationGeneratorApp {
                 }else {
                     invitationGenerator.setFontStyle(Font.PLAIN);
                 }
-                previewFontStyle();
                 loadPreview();
             }
         });
 
         fontSizeSpinner.addChangeListener(e -> {
             invitationGenerator.setFontSize(Integer.parseInt(fontSizeSpinner.getValue().toString()));
-            previewFontStyle();
             loadPreview();
         });
 
@@ -257,9 +252,4 @@ public class InvitationGeneratorApp {
         invitationGenerator.loadPreview(imagePrevLabel);
         colorPlane.setBackground(invitationGenerator.getFontColor());
     }
-
-    private void previewFontStyle() {
-        //fontPreview.setFont(new Font(invitationGenerator.getFont(),invitationGenerator.getFontStyle(),invitationGenerator.getFontSize()));
-    }
-
 }
