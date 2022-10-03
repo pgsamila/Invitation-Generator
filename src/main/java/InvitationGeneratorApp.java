@@ -57,12 +57,11 @@ public class InvitationGeneratorApp {
         fontComboBox.setSelectedItem(invitationGenerator.getFont());
         fontStyleComboBox.setSelectedItem("Plain");
         loadPreview();
-        xValLabel.setText("X : "+invitationGenerator.getImageWidth());
-        yValLabel.setText("Y : "+invitationGenerator.getImageHeight());
         colorPlane.setBackground(invitationGenerator.getFontColor());
         sliderPreviewScale.setValue(invitationGenerator.getScale());
         sliderPreviewScale.setMaximum(10);
         sliderPreviewScale.setMinimum(1);
+        loadValues();
         mainFrame.setVisible(true);
     }
 
@@ -126,14 +125,12 @@ public class InvitationGeneratorApp {
         spinnerX.addChangeListener(e -> {
             int value = (int) spinnerX.getValue();
             invitationGenerator.setXPosition(value);
-            xValLabel.setText("X : "+value);
             loadPreview();
         });
 
         spinnerY.addChangeListener(e -> {
             int value = (int) spinnerY.getValue();
             invitationGenerator.setYPosition(value);
-            yValLabel.setText("Y : "+value);
             loadPreview();
         });
 
@@ -252,8 +249,8 @@ public class InvitationGeneratorApp {
     private void loadValues() {
         spinnerX.setValue(invitationGenerator.getImageWidth()/2);
         spinnerY.setValue(invitationGenerator.getImageHeight()/2);
-        yValLabel.setText("Y min: 0 & Y max: "+invitationGenerator.getImageHeight());
-        xValLabel.setText("X min: 0 & X max: "+invitationGenerator.getImageWidth());
+        yValLabel.setText("Vertical direction min: 0 & max: "+invitationGenerator.getImageHeight());
+        xValLabel.setText("Horizontal direction min: 0 & max: "+invitationGenerator.getImageWidth());
     }
 
     private void loadPreview() {
