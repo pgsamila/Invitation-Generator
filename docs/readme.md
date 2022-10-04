@@ -1,4 +1,3 @@
-
 #Invitation Generator
 
 Invitation Generator is a java App that you can write guests names on your invitation card quickly. You can save the invitations in separate files, so you can send them or print them separately.

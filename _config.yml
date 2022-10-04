@@ -2,7 +2,7 @@
 title: Invitation Generator
 
 author: champlnx.com
-
+theme: minima
 
 navbar-links:
   About Me: "aboutme"
