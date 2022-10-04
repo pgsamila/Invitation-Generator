@@ -121,8 +121,8 @@ public class InvitationGenerator {
             if (!f1.isDirectory()) {
                 f1.mkdir();
             }
-            File outputFile = new File(targetFolderLocation + "/" + userName + ".png");
-            ImageIO.write(bufferedImage, "png", outputFile);
+            File outputFile = new File(targetFolderLocation + "/" + userName + ".jpeg");
+            ImageIO.write(bufferedImage, "jpeg", outputFile);
             count = count + 1;
             progressBar.setValue(count);
         }
