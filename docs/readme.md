@@ -1,8 +1,19 @@
-#Invitation Generator
+
+
+<!DOCTYPE html>
+<!-- You can safely delete this file! -->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Invitation Generator</title>
+  </head>
+  <body>
+  	#Invitation Generator
 Invitation Generator is a java App that you can write guests names on your invitation card quickly. You can save the invitations in separate files, so you can send them or print them separately.
 
 ##Supported OS
-This app works on any Linux, Windows, Mac operating system. 
+This app works on any Linux, Windows, Mac operating system.
 (If it didn't work on your computer, feel free to build from source using IntelliJ IDEA)
 
 ##Download the latest releases
@@ -16,9 +27,5 @@ Please follow [these simple instructions](../README.md) on how to use the applic
 Invitation Generator is a free app & anyone can contribute to this app. :)
 You can start by fork the source & making commits.
 [more details can be found from here](../README.md)
-
-<html>
-    <body>
-        Hello World!
-    </body>
+  </body>
 </html>
