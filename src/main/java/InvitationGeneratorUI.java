@@ -14,41 +14,41 @@ import java.io.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class InvitationGeneratorApp {
+public class InvitationGeneratorUI {
+    private JPanel controlPanel;
+    private JPanel cPanel;
     private JTextField sourceFileTextField;
     private JButton openSourceFileButton;
     private JTextField targetFolderTextField;
     private JButton openTargetFolderButton;
     private JButton generateInvitationsButton;
-    private JPanel controlPanel;
-    private JComboBox fontComboBox;
-    private JLabel fontPreview;
-    private JComboBox fontStyleComboBox;
     private JSpinner fontSizeSpinner;
+    private JComboBox fontComboBox;
+    private JComboBox fontStyleComboBox;
     private JTextField nameListTextField;
     private JButton openNameListFileButton;
-    private JProgressBar progressBar;
     private JLabel statusText;
-    private JLabel imagePrevLabel;
-    private JButton selectColorButton;
-    private JPanel colorPlane;
+    private JProgressBar progressBar;
     private JLabel xValLabel;
     private JLabel yValLabel;
     private JSpinner spinnerY;
     private JSpinner spinnerX;
     private JSlider sliderPreviewScale;
-    private JButton exportFormatSettingsButton;
+    private JPanel colorPlane;
+    private JButton selectColorButton;
     private JButton importFormatSettingsButton;
+    private JButton exportFormatSettingsButton;
+    private JLabel imagePrevLabel;
     private JFrame mainFrame;
     private InvitationGenerator invitationGenerator;
 
 
-    public InvitationGeneratorApp(){
+    public InvitationGeneratorUI() {
         invitationGenerator = new InvitationGenerator();
         prepareGUI();
     }
 
-    public void initialize(){
+    public void initialize() {
         sourceFileTextField.setText(invitationGenerator.getSourceFileLocation());
         targetFolderTextField.setText(invitationGenerator.getTargetFolderLocation());
         nameListTextField.setText(invitationGenerator.getNameListFile());
@@ -66,21 +66,21 @@ public class InvitationGeneratorApp {
 
     private void prepareGUI() {
         mainFrame = new JFrame("Invitation Generator - 1.0v");
-        mainFrame.setSize(750,900);
+        mainFrame.setSize(750, 900);
         mainFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent windowEvent){
+            public void windowClosing(WindowEvent windowEvent) {
                 System.exit(0);
             }
         });
         mainFrame.add(controlPanel);
 
         openSourceFileButton.addActionListener(e -> {
-            JFileChooser chooser= new JFileChooser();
+            JFileChooser chooser = new JFileChooser();
             chooser.setDialogTitle("Select Source Image");
-            FileNameExtensionFilter filter=new FileNameExtensionFilter("Image Files","jpg","jpeg","png","gif");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif");
             chooser.setFileFilter(filter);
-            JLabel img=new JLabel();
-            img.setPreferredSize(new Dimension(300,300));
+            JLabel img = new JLabel();
+            img.setPreferredSize(new Dimension(300, 300));
             chooser.setAccessory(img);
             chooser.addPropertyChangeListener(pe -> {
                 SwingWorker<Image, Void> worker = new SwingWorker<Image, Void>() {
@@ -97,6 +97,7 @@ public class InvitationGeneratorApp {
                         }
                         return null;
                     }
+
                     protected void done() {
                         try {
                             Image i = get(1L, TimeUnit.NANOSECONDS);
@@ -113,8 +114,8 @@ public class InvitationGeneratorApp {
 
             chooser.showOpenDialog(null);
 
-            File f= chooser.getSelectedFile();
-            String filename= f.getAbsolutePath();
+            File f = chooser.getSelectedFile();
+            String filename = f.getAbsolutePath();
             invitationGenerator.setSourceFileLocation(filename);
             sourceFileTextField.setText(invitationGenerator.getSourceFileLocation());
             loadValues();
@@ -141,21 +142,22 @@ public class InvitationGeneratorApp {
 
         selectColorButton.addActionListener(e -> {
             Color newColor = JColorChooser.showDialog(null, "Choose a color", invitationGenerator.getFontColor());
-            if(newColor != null){
+            if (newColor != null) {
                 invitationGenerator.setFontColor(newColor);
             }
             loadPreview();
         });
 
         openTargetFolderButton.addActionListener(e -> {
-            JFileChooser chooser= new JFileChooser();
+            JFileChooser chooser = new JFileChooser();
             chooser.setDialogTitle("Select Folder");
             chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            chooser.setFileFilter( new FileFilter(){
+            chooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
                     return f.isDirectory();
                 }
+
                 @Override
                 public String getDescription() {
                     return "Any folder";
@@ -174,7 +176,7 @@ public class InvitationGeneratorApp {
         String fonts[] = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fontComboBox.setModel(new DefaultComboBoxModel(fonts));
         fontComboBox.addActionListener(e -> {
-            if(Objects.equals(e.getActionCommand(), "comboBoxChanged")){
+            if (Objects.equals(e.getActionCommand(), "comboBoxChanged")) {
                 String font = fonts[fontComboBox.getSelectedIndex()];
                 invitationGenerator.setFont(font);
                 loadPreview();
@@ -184,13 +186,13 @@ public class InvitationGeneratorApp {
         String styles[] = {"Plain", "Bold", "Italic"};
         fontStyleComboBox.setModel(new DefaultComboBoxModel(styles));
         fontStyleComboBox.addActionListener(e -> {
-            if(Objects.equals(e.getActionCommand(), "comboBoxChanged")){
+            if (Objects.equals(e.getActionCommand(), "comboBoxChanged")) {
                 String style = styles[fontStyleComboBox.getSelectedIndex()];
-                if(style.equals("Bold")){
+                if (style.equals("Bold")) {
                     invitationGenerator.setFontStyle(Font.BOLD);
-                }else if(style.equals("Italic")){
+                } else if (style.equals("Italic")) {
                     invitationGenerator.setFontStyle(Font.ITALIC);
-                }else {
+                } else {
                     invitationGenerator.setFontStyle(Font.PLAIN);
                 }
                 loadPreview();
@@ -203,13 +205,13 @@ public class InvitationGeneratorApp {
         });
 
         openNameListFileButton.addActionListener(e -> {
-            JFileChooser chooser= new JFileChooser();
+            JFileChooser chooser = new JFileChooser();
             chooser.setDialogTitle("Select Names List");
             FileNameExtensionFilter extFilter = new FileNameExtensionFilter("Text file", "txt");
             chooser.setFileFilter(extFilter);
             chooser.showOpenDialog(null);
-            File f= chooser.getSelectedFile();
-            String filename= f.getAbsolutePath();
+            File f = chooser.getSelectedFile();
+            String filename = f.getAbsolutePath();
             invitationGenerator.setNameListFile(filename);
             nameListTextField.setText(invitationGenerator.getNameListFile());
         });
@@ -230,7 +232,7 @@ public class InvitationGeneratorApp {
                         statusText.setText("Done!");
                     } catch (IOException ex) {
                         ex.printStackTrace();
-                        statusText.setText("Failed! : "+ex.getMessage());
+                        statusText.setText("Failed! : " + ex.getMessage());
                         progressBar.setForeground(Color.RED);
                     }
                     generateInvitationsButton.setEnabled(true);
@@ -239,12 +241,12 @@ public class InvitationGeneratorApp {
 
         });
 
-        exportFormatSettingsButton.addActionListener(e ->{
+        exportFormatSettingsButton.addActionListener(e -> {
             JSONObject obj = new JSONObject();
             obj.put("fontName", invitationGenerator.getFont());
             obj.put("fontSize", invitationGenerator.getFontSize());
             obj.put("fontStyle", invitationGenerator.getFontStyle());
-            obj.put("fontColor",invitationGenerator.getFontColor().getRGB());
+            obj.put("fontColor", invitationGenerator.getFontColor().getRGB());
             obj.put("textXPosition", invitationGenerator.getTextPositionX());
             obj.put("textYPosition", invitationGenerator.getTextPositionY());
             JFrame parentFrame = new JFrame();
@@ -257,12 +259,12 @@ public class InvitationGeneratorApp {
                 FileWriter file = null;
                 try {
                     try {
-                        file = new FileWriter(fileToSave.getAbsolutePath()+".json");
+                        file = new FileWriter(fileToSave.getAbsolutePath() + ".json");
                         file.write(obj.toJSONString());
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                }finally {
+                } finally {
                     try {
                         if (file != null) {
                             file.flush();
@@ -321,10 +323,10 @@ public class InvitationGeneratorApp {
     }
 
     private void loadValues() {
-        spinnerX.setValue(invitationGenerator.getImageWidth()/2);
-        spinnerY.setValue(invitationGenerator.getImageHeight()/2);
-        yValLabel.setText("Vertical direction min: 0 & max: "+invitationGenerator.getImageHeight());
-        xValLabel.setText("Horizontal direction min: 0 & max: "+invitationGenerator.getImageWidth());
+        spinnerX.setValue(invitationGenerator.getImageWidth() / 2);
+        spinnerY.setValue(invitationGenerator.getImageHeight() / 2);
+        yValLabel.setText("Vertical direction min: 0 & max: " + invitationGenerator.getImageHeight());
+        xValLabel.setText("Horizontal direction min: 0 & max: " + invitationGenerator.getImageWidth());
     }
 
     private void loadPreview() {

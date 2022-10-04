@@ -1,7 +1,9 @@
 public class App {
 
     public static void main(String[] args) {
-        InvitationGeneratorApp invitationGeneratorApp = new InvitationGeneratorApp();
-        invitationGeneratorApp.initialize();
+//        InvitationGeneratorApp invitationGeneratorApp = new InvitationGeneratorApp();
+//        invitationGeneratorApp.initialize();
+
+        new InvitationGeneratorUI().initialize();
     }
 }

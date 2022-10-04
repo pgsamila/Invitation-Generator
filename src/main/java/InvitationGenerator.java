@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class InvitationGenerator {
     private String sourceFileLocation = "Select Image File";
@@ -140,6 +141,12 @@ public class InvitationGenerator {
         ImagePlus image = IJ.openImage(imageName);
         if (image == null) {
             image = IJ.openImage(getClass().getClassLoader().getResource("test.png").getPath());
+            if(image == null) {
+                image = IJ.openImage("./test.png");
+            }
+            if(image == null){
+                return;
+            }
             if (!isSizesInitialized) {
                 imageWidth = image.getWidth();
                 imageHeight = image.getHeight();
