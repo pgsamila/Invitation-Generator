@@ -1,4 +1,6 @@
 # Invitation Generator
+[![Maven CI/CD](https://github.com/pgsamila/Invitation-Generator/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/pgsamila/Invitation-Generator/actions/workflows/main.yml)
+
 This application will generate invitations, according to given list of names.
 
 # How to build & run the project
