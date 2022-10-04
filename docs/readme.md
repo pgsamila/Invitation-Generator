@@ -16,3 +16,9 @@ Please follow [these simple instructions](../README.md) on how to use the applic
 Invitation Generator is a free app & anyone can contribute to this app. :)
 You can start by fork the source & making commits.
 [more details can be found from here](../README.md)
+
+<html>
+    <body>
+        Hello World!
+    </body>
+</html>
